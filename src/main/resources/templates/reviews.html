@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+</head>
+<body>
+
+<h1>Reviews</h1>
+<h3>Restaurant Name</h3>
+<p id="restaurant_name"></p>
+<h3>Review</h3>
+<p id="review"></p>
+
+<script>
+    var url = new URL("http://localhost:8080/reviewStream");
+    //An EventSource instance opens a persistent connection to an HTTP server, which issues server sent events
+    var source = new EventSource(url);
+
+    source.onopen = function() {
+        console.log('A connection to the stream has been opened');
+    }
+
+    source.onerror = function (error) {
+        console.log('An error has occurred while receiving stream data', error);
+        source.close();
+    }
+
+    source.onmessage = function (event) {
+        console.log('received event', event);
+        var data = event.data;
+        var json = JSON.parse(data);
+
+        document.getElementById("restaurant_name").innerHTML = json.restaurant_name;
+        document.getElementById("review").innerHTML = json.review;
+    }
+
+</script>
+
+
+</body>
+</html>
