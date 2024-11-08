@@ -6,18 +6,31 @@
 </head>
 <body>
 
-<h1>Reviews</h1>
-<h3>Restaurant Name</h3>
-<p id="restaurant_name"></p>
-<h3>Review</h3>
-<p id="review"></p>
+<button onClick="/test"> Button</button>
+
+<table id="reviewsTable">
+    <thead>
+        <tr>
+            <td>Restaurant Name</td>
+            <td>Rating</td>
+            <td>Review</td>
+            <td>Address</td>
+            <td>Item Ordered</td>
+            <td>Open Hours</td>
+            <td>Delivery Available</td>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
 
 <script>
     var url = new URL("http://localhost:8080/reviewStream");
     //An EventSource instance opens a persistent connection to an HTTP server, which issues server sent events
     var source = new EventSource(url);
 
-    source.onopen = function() {
+    ///Source from
+    source.onopen = function () {
         console.log('A connection to the stream has been opened');
     }
 
@@ -31,8 +44,34 @@
         var data = event.data;
         var json = JSON.parse(data);
 
-        document.getElementById("restaurant_name").innerHTML = json.restaurant_name;
-        document.getElementById("review").innerHTML = json.review;
+        // document.getElementById("restaurant_name").innerHTML = json.restaurant_name;
+        // document.getElementById("rating").innerHTML = json.rating;
+        // document.getElementById("review").innerHTML = json.review;
+        // document.getElementById("address").innerHTML = json.address;
+        // document.getElementById("menu_item").innerHTML = json.menu_item;
+        // document.getElementById("opening_hours").innerHTML = json.opening_hours;
+        // document.getElementById("closing_hours").innerHTML = json.closing_hours;
+        // document.getElementById("delivery_available").innerHTML = json.delivery_available;
+
+        var table = document.getElementById("reviewsTable").getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow();
+
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+        var cell5 = newRow.insertCell(4);
+        var cell6 = newRow.insertCell(5);
+        var cell7 = newRow.insertCell(6);
+
+        cell1.innerHTML = json.restaurant_name;
+        cell2.innerHTML = json.rating;
+        cell3.innerHTML = json.review ? json.review : "No Review Available";
+        cell4.innerHTML = json.address;
+        cell5.innerHTML = json.menu_item;
+        cell6.innerHTML = json.opening_hours + "a.m - " + json.closing_hours + "p.m";
+        cell7.innerHTML = json.delivery_available ? json.delivery_available : "N/A"; //TODO not correct
+
     }
 
 </script>

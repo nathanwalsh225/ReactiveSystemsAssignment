@@ -16,10 +16,10 @@ public class ReviewService {
     private WebClient webClient;
 
     public ReviewService() {
-        this.webClient = WebClient.create("https://my.api.mockaroo.com/review.json?key=aa67b4c0&format=json");
+        this.webClient = WebClient.create("https://my.api.mockaroo.com/review.json?key=aa67b4c0");
     }
 
-    public Mono<Review> getReviews(String restaurantName, String address, Integer rating, String menuItem, Date openingHours, Date closingHours, Boolean deliveryAvailable, String reviewText)
+    public Mono<Review> getReviews()
     {
         return webClient
                 .get()
@@ -36,7 +36,7 @@ public class ReviewService {
         {
                 // Publish a new element every 10 seconds
             return Flux.interval(Duration.ofSeconds(10))
-                    .flatMap(tick -> getReviews("restaurantName", "address", 5, "menuItem", new Date(), new Date(), true, "reviewText"));
+                    .flatMap(tick -> getReviews());
 
         }
     }

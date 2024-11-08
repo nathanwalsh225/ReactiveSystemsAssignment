@@ -19,4 +19,9 @@ public class ReviewController {
     public Flux<Review> reviewStream() {
         return reviewService.streamReviewUpdates();
     }
+
+    @GetMapping("/test")
+    public String testSave() {
+        return null;
+    }
 }
