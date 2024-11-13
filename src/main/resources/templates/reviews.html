@@ -9,7 +9,7 @@
 
 <form th:action="@{/saveCriteria}" th:object="${criteria}" method="post" >
 
-    Resturaunt: <select id="resturauntName" name="resturauntName" th:field="*{restaurantName}" required="false">
+    Restaurant: <select id="resturauntName" name="resturauntName" th:field="*{restaurantName}" required="false">
                     <option value="McDonalds">McDonalds</option>
                     <option value="KFC">KFC</option>
                     <option value="Burger King">Burger King</option>
@@ -17,9 +17,9 @@
                     <option value="Nandos">Nandos</option>
                 </select><br>
 
-    Anything Over <input type="number" th:field="*{rating}" id="rating" name="rating" required="false"> Stars
+    Anything Over <input type="number" th:field="*{rating}" id="rating" name="rating" required="false" min="0" max="5"> Stars <br>
 
-    <input type="submit" value="Update Criteria">
+    <input type="submit" value="Update Criteria"><br>
 </form>
 
 <table id="reviewsTable">
@@ -39,11 +39,9 @@
 </table>
 
 <script>
-    var url = new URL("http://localhost:8080/reviewStream");
-    //An EventSource instance opens a persistent connection to an HTTP server, which issues server sent events
+    var url = new URL(`http://localhost:8080/reviewStream`);
     var source = new EventSource(url);
 
-    ///Source from
     source.onopen = function () {
         console.log('A connection to the stream has been opened');
     }

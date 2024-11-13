@@ -4,7 +4,23 @@ import java.util.List;
 
 public class Criteria {
 
-   public List<String> restaurantName;
+   private String restaurantName;
 
-   public Integer rating;
+   private Integer rating;
+
+   public String getRestaurantName() {
+      return restaurantName;
+   }
+
+   public void setRestaurantName(String restaurantName) {
+      this.restaurantName = restaurantName;
+   }
+
+   public Integer getRating() {
+      return rating;
+   }
+
+   public void setRating(Integer rating) {
+      this.rating = rating;
+   }
 }
