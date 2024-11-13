@@ -7,9 +7,6 @@ import java.util.Date;
 
 public class Review {
 
-    @Id
-    Integer reviewId;
-
     @JsonProperty("restaurant_name")
     String restaurantName;
 
@@ -33,14 +30,6 @@ public class Review {
 
     @JsonProperty("review")
     String reviewText;
-
-    public Integer getReviewId() {
-        return reviewId;
-    }
-
-    public void setReviewId(Integer reviewId) {
-        this.reviewId = reviewId;
-    }
 
     public String getRestaurantName() {
         return restaurantName;

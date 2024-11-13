@@ -6,7 +6,21 @@
 </head>
 <body>
 
-<button onClick="/test"> Button</button>
+
+<form th:action="@{/saveCriteria}" th:object="${criteria}" method="post" >
+
+    Resturaunt: <select id="resturauntName" name="resturauntName" th:field="*{restaurantName}" required="false">
+                    <option value="McDonalds">McDonalds</option>
+                    <option value="KFC">KFC</option>
+                    <option value="Burger King">Burger King</option>
+                    <option value="Shake Dog">Shake Dog</option>
+                    <option value="Nandos">Nandos</option>
+                </select><br>
+
+    Anything Over <input type="number" th:field="*{rating}" id="rating" name="rating" required="false"> Stars
+
+    <input type="submit" value="Update Criteria">
+</form>
 
 <table id="reviewsTable">
     <thead>
@@ -44,15 +58,6 @@
         var data = event.data;
         var json = JSON.parse(data);
 
-        // document.getElementById("restaurant_name").innerHTML = json.restaurant_name;
-        // document.getElementById("rating").innerHTML = json.rating;
-        // document.getElementById("review").innerHTML = json.review;
-        // document.getElementById("address").innerHTML = json.address;
-        // document.getElementById("menu_item").innerHTML = json.menu_item;
-        // document.getElementById("opening_hours").innerHTML = json.opening_hours;
-        // document.getElementById("closing_hours").innerHTML = json.closing_hours;
-        // document.getElementById("delivery_available").innerHTML = json.delivery_available;
-
         var table = document.getElementById("reviewsTable").getElementsByTagName('tbody')[0];
         var newRow = table.insertRow();
 
@@ -71,6 +76,7 @@
         cell5.innerHTML = json.menu_item;
         cell6.innerHTML = json.opening_hours + "a.m - " + json.closing_hours + "p.m";
         cell7.innerHTML = json.delivery_available ? json.delivery_available : "N/A"; //TODO not correct
+
 
     }
 
