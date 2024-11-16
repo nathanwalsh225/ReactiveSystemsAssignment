@@ -42,10 +42,11 @@ public class ReviewController {
     public Flux<Review> getSavedReviews(@RequestParam(required = false) String restaurantName) {
 
         System.out.println("restaurantName: " + restaurantName);
-
-        if (restaurantName != null) {
-            return reviewService.getSavedReviews(restaurantName);
-        } else
+        if (restaurantName == null || restaurantName.equals("null")) {
             return reviewService.getSavedReviews();
+        } else {
+            return reviewService.getSavedReviews(restaurantName);
+        }
+
     }
 }

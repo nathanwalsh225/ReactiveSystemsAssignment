@@ -11,7 +11,7 @@
     var restaurantName = [[${criteria.restaurantName}]];
     console.log(restaurantName);
 
-    fetch(`/reviews/saved?restaurantName=${criteriaName}`)
+    fetch(`/reviews/saved?restaurantName=${restaurantName}`)
         .then(response => response.json())
         .then(data => {
             console.log(data.length)
