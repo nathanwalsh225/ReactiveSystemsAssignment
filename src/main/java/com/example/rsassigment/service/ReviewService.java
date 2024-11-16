@@ -1,6 +1,5 @@
 package com.example.rsassigment.service;
 
-import com.example.rsassigment.models.Criteria;
 import com.example.rsassigment.models.Review;
 import com.example.rsassigment.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
@@ -9,9 +8,8 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.lang.constant.Constable;
+import java.util.List;
 import java.time.Duration;
-import java.util.Date;
 
 @Service
 public class ReviewService {
@@ -74,6 +72,16 @@ public class ReviewService {
         System.out.println("REJECTED");
         return false;
     }
+
+    public Flux<Review> getSavedReviews() {
+        return reviewRepository.findAll();
+    }
+
+    public Flux<Review> getSavedReviews(String restaurantName) {
+
+        return reviewRepository.findByRestaurantName(restaurantName);
+    }
+
 
 
 

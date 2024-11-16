@@ -21,9 +21,20 @@ public class ViewController {
     public String saveCriteria(@ModelAttribute("criteria") Criteria criteria, Model model) {
         model.addAttribute("criteria", criteria);
 
-        System.out.println(criteria.getRating());
-        System.out.println(criteria.getRestaurantName());
-
         return "reviews";
+    }
+
+    @GetMapping("/savedReviews")
+    public String savedReviews(Model model) {
+        model.addAttribute("criteria", new Criteria());
+        return "savedReviews";
+    }
+
+    //returning the restaurant name to the savedReviews page to query the data by name
+    @PostMapping("/savedReviews")
+    public String savedReviews(@ModelAttribute("criteria") Criteria criteria, Model model) {
+        model.addAttribute("criteria", criteria);
+
+        return "savedReviews";
     }
 }

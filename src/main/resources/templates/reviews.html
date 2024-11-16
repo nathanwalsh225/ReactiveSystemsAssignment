@@ -6,42 +6,6 @@
 </head>
 <body>
 
-
-<form th:action="@{/saveCriteria}" th:object="${criteria}" name="saveCriteria" method="post" >
-
-    Restaurant:
-    <select id="restaurantName" th:field="*{restaurantName}" required="false">
-                    <option value="null"></option>
-                    <option value="McDonalds">McDonalds</option>
-                    <option value="KFC">KFC</option>
-                    <option value="Burger King">Burger King</option>
-                    <option value="Shake Dog">Shake Dog</option>
-                    <option value="Nandos">Nandos</option>
-                </select><br>
-
-    Anything Over
-    <input type="number" th:field="*{rating}" id="rating"  min="1" max="5">
-    Stars <br>
-
-    <input type="submit" value="Update Criteria"><br>
-</form>
-
-<table id="reviewsTable">
-    <thead>
-        <tr>
-            <td>Restaurant Name</td>
-            <td>Rating</td>
-            <td>Review</td>
-            <td>Address</td>
-            <td>Item Ordered</td>
-            <td>Open Hours</td>
-            <td>Delivery Available</td>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
 <script th:inline="javascript">
     /*
        Getting the criteria information from the form and setting it to variables
@@ -92,10 +56,50 @@
         cell6.innerHTML = json.opening_hours + "a.m - " + json.closing_hours + "p.m"; //Data conversion for information display
         cell7.innerHTML = json.delivery_available ? "Yes" : "No"; //Data conversion for information display
 
-
     }
 
 </script>
+
+
+<h1>Restaurant Reviews</h1>
+<h2><a href="/savedReviews">View saved reviews</a></h2>
+<h2>Query saved data:</h2>
+<form th:action="@{/saveCriteria}" th:object="${criteria}" name="saveCriteria" method="post" >
+
+    Restaurant:
+    <select id="restaurantName" th:field="*{restaurantName}" required="false">
+                    <option value="null"></option>
+                    <option value="McDonalds">McDonalds</option>
+                    <option value="KFC">KFC</option>
+                    <option value="Burger King">Burger King</option>
+                    <option value="Shake Dog">Shake Dog</option>
+                    <option value="Nandos">Nandos</option>
+                </select><br>
+
+    Anything Over
+    <input type="number" th:field="*{rating}" id="rating"  min="1" max="5">
+    Stars <br>
+
+    <input type="submit" value="Update Criteria"><br>
+</form>
+
+<table id="reviewsTable">
+    <thead>
+        <tr>
+            <td>Restaurant Name</td>
+            <td>Rating</td>
+            <td>Review</td>
+            <td>Address</td>
+            <td>Item Ordered</td>
+            <td>Open Hours</td>
+            <td>Delivery Available</td>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
 
 
 </body>
