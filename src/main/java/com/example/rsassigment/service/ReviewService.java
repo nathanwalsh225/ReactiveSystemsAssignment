@@ -42,40 +42,41 @@ public class ReviewService {
                 .flatMap(tick -> getReviews());
     }
 
-    public Boolean insertReview(String restaurantName, String address, Integer rating, String menuItem, Integer openingHours, Integer closingHours, Boolean deliveryAvailable, String reviewText) {
+    public Mono<Void> insertReview(String restaurantName, Integer rating, Review review) {
 
-            Review review = new Review();
-
-            review.setRestaurantName(restaurantName);
-            review.setAddress(address);
-            review.setRating(rating);
-            review.setMenuItem(menuItem);
-            review.setOpeningHours(openingHours);
-            review.setClosingHours(closingHours);
-            review.setDeliveryAvailable(deliveryAvailable);
-            review.setReviewText(reviewText);
-
-            System.out.println("Name: " + review.getRestaurantName());
-            System.out.println("Address: " + review.getAddress());
-            System.out.println("Rating: " + review.getRating());
-            System.out.println("Menu item: " + review.getMenuItem());
-            System.out.println("Open: " + review.getOpeningHours());
-            System.out.println("Close: " + review.getClosingHours());
-            System.out.println("Delivery: " + review.getDeliveryAvailable());
-            System.out.println("Text: " + review.getReviewText());
-
-            System.out.println("Review inserted: " + review.getRestaurantName());
-
-//            try (reviewRepository.insert(review)) {
-//                return true;
-//            } catch (Exception e) {
-//                System.out.println("Error: " + e.getMessage());
-//                return false;
-//            }
-
-        return true;
-
+        //Check if the criteria matches the review, if it does, save to the DB
+        if(validateCriteria(restaurantName, rating, review)) {
+            return reviewRepository.insert(review).then();
+        } else {
+            return Mono.empty();
+        }
     }
+
+    public Boolean validateCriteria(String restaurantName, Integer rating, Review review) {
+
+        //basic validation for checking that the resturaunt name and rating match the criteria then return true
+        if (review.getRestaurantName().equals(restaurantName) && review.getRating() >= rating) {
+            System.out.println("ACCEPTED");
+            return true;
+        } else if (restaurantName.equals("null") && rating <= review.getRating()) {
+            //if the resturaunt name is not selected, its value will be "null" which means the user wants to query
+            //only by rating, so check to see if the rating matches the criteria
+            System.out.println("ACCEPTED");
+            return true;
+        } else if (rating == 10 && restaurantName.equals(review.getRestaurantName())) {
+            //if the resturaunt name is not selected, its value will be "null" which means the user wants to query
+            //only by rating, so check to see if the rating matches the criteria
+            System.out.println("ACCEPTED");
+            return true;
+        }
+
+        //None of the criteria match so return false to indicate not to save to the DB
+        System.out.println("REJECTED");
+        return false;
+    }
+
+
+
 
 
 }

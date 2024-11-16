@@ -21,29 +21,6 @@ public class ReviewController {
 
     @GetMapping(path ="/reviewStream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Review> reviewStream(@RequestParam(required = false) String restaurantName, @RequestParam(required = false) Integer rating) {
-        //url params
-
-
-//      Flux<Review> reviewFlux = reviewService.streamReviewUpdates()
-//                .filter(review -> {
-//                    System.out.println("Review Name: " + review.getRestaurantName());
-//                    System.out.println("Criteria Name: " + restaurantName);
-//                    System.out.println("Review Rating: " + review.getRating());
-//                    System.out.println("Criteria Rating: " + rating);
-//
-//                    //Validation for if the critera matches the review, if it does return true and continue
-//                    //onto doOnNext, if not return false and just return the reviewflux to the reviews.html
-//                    return reviewService.validateCriteria(restaurantName, rating, review);
-//                })
-//                .doOnNext(review -> {
-//                    reviewService.insertReview(review).subscribe(
-//                            success -> System.out.println("Saved to DB: " + review),
-//                            error -> System.err.println("Failed to save to DB: " + error.getMessage())
-//                    );
-//                })
-//                .doOnError(error -> {
-//                    System.out.println("Error: " + error.getMessage());
-//                });
 
         return reviewService.streamReviewUpdates()
                 .filter(review -> {
@@ -58,6 +35,4 @@ public class ReviewController {
                     return true;
                 });
     }
-
-
 }
