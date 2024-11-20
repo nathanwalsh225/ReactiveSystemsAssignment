@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class Review {
 
+    @Id
+    @JsonProperty("id")
+    String id;
+
     @JsonProperty("restaurant_name")
     String restaurantName;
 
@@ -93,5 +97,13 @@ public class Review {
 
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

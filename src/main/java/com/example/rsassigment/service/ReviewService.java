@@ -28,7 +28,7 @@ public class ReviewService {
                 .uri(uriBuilder -> uriBuilder.build())
                 .retrieve()
                 .bodyToMono(Review.class)
-                //Add way to transfor the A.M P.M here
+                //TODO Add way to transfor the A.M P.M here
                 .onErrorResume(WebClientResponseException.class, ex -> {
                     System.out.println("Error: " + ex.getMessage());
                     return Mono.empty(); // Return an empty Mono on error to prevent issues
@@ -81,6 +81,18 @@ public class ReviewService {
     public Flux<Review> getSavedReviews(String restaurantName) {
 
         return reviewRepository.findByRestaurantName(restaurantName);
+    }
+
+    public Mono<Void> deleteReview(String id) {
+        return reviewRepository.deleteById(id);
+    }
+
+    public Mono<Void> updateReview(Review review) {
+        return reviewRepository.save(review).then();
+    }
+
+    public Mono<Review> getReviewById(String id) {
+        return reviewRepository.findById(id);
     }
 
 

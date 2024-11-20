@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Review</title>
+</head>
+<body>
+
+<script th:inline="javascript">
+
+  var id = [[${review.id}]];
+
+  fetch(`/reviews/getReviewById?id=${id}`)
+          .then(response => response.json())
+          .then(data => {
+
+            console.log(data);
+
+            //Getting the value of each element and assinging it to the appropitate ID
+            document.getElementById("id").value = data.id;
+            document.getElementById("restaurantName").value = data.restaurant_name;
+            document.getElementById("rating").value = data.rating;
+            document.getElementById("review").value = data.review;
+            document.getElementById("address").value = data.address;
+            document.getElementById("menuItem").value = data.menu_item;
+            document.getElementById("openingHours").value = data.opening_hours;
+            document.getElementById("closingHours").value = data.closing_hours;
+            document.getElementById("deliveryAvailable").checked = data.delivery_available;
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
+</script>
+
+
+<h1> Edit Review </h1>
+<form th:action="@{/reviews/update}" th:object="${review}" method="post">
+
+    <input type="text" id="id" th:field="*{id}" hidden><br><br>
+    Restaurant Name: <input type="text" id="restaurantName" th:field="*{restaurantName}" required><br><br>
+    Rating: <input type="number" id="rating" th:field="*{rating}" required><br><br>
+    Review: <input type="text" id="review" th:field="*{reviewText}"><br><br>
+    Address: <input type="text" id="address" th:field="*{address}" required><br><br>
+    Menu Item: <input type="text" id="menuItem" th:field="*{menuItem}" required><br><br>
+    Opening Hours: <input type="number" id="openingHours" th:field="*{openingHours}" required><br><br>
+    Closing Hours: <input type="number" id="closingHours" th:field="*{closingHours}" required><br><br>
+    Delivery Available: <input type="checkbox" id="deliveryAvailable" th:field="*{deliveryAvailable}" ><br><br>
+
+    <input type="submit" value="Update Review">
+    <button><a href="/">Return</a></button>
+
+
+</form>
+
+
+
+</body>
+</html>

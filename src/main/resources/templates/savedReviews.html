@@ -16,6 +16,7 @@
         .then(data => {
             console.log(data.length)
             data.forEach(review => {
+
                 var table = document.getElementById("reviewsTable").getElementsByTagName('tbody')[0];
                 var newRow = table.insertRow();
 
@@ -36,8 +37,8 @@
                 cell5.innerHTML = review.menu_item;
                 cell6.innerHTML = review.opening_hours + "a.m - " + review.closing_hours + "p.m"; //Data conversion for information display
                 cell7.innerHTML = review.delivery_available ? "Yes" : "No"; //Data conversion for information display
-                cell8.innerHTML = "<a href='/reviews/edit/" + review.id + "'>Edit</a>";
-                cell9.innerHTML = "<a href='/reviews/delete/" + review.id + "'>Delete</a>";
+                cell8.innerHTML = "<a href='/reviews/edit?id=" + review.id + "'>Edit</a>";
+                cell9.innerHTML = "<a href='/reviews/delete?id=" + review.id + "'>Delete</a>";
             })
         })
         .catch(error => {
