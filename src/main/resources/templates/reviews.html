@@ -18,7 +18,7 @@
     var url;
 
     //if the criteria variables have not been updated from 'default' they will just be ignored in 'reviewStream'
-    url = new URL(`http://localhost:8080/reviewStream?restaurantName=${criteriaName}&rating=${criteriaRating}`);
+    url = new URL(`http://localhost:8888/reviewStream?restaurantName=${criteriaName}&rating=${criteriaRating}`);
 
     var source = new EventSource(url);
 

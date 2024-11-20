@@ -28,6 +28,7 @@ public class ReviewService {
                 .uri(uriBuilder -> uriBuilder.build())
                 .retrieve()
                 .bodyToMono(Review.class)
+                //Add way to transfor the A.M P.M here
                 .onErrorResume(WebClientResponseException.class, ex -> {
                     System.out.println("Error: " + ex.getMessage());
                     return Mono.empty(); // Return an empty Mono on error to prevent issues
