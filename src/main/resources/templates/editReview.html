@@ -40,7 +40,7 @@
 
     <input type="text" id="id" th:field="*{id}" hidden><br><br>
     Restaurant Name: <input type="text" id="restaurantName" th:field="*{restaurantName}" required><br><br>
-    Rating: <input type="number" id="rating" th:field="*{rating}" required><br><br>
+    Rating: <input type="number" id="rating" th:field="*{rating}" min="0" max="5" required><br><br>
     Review: <input type="text" id="review" th:field="*{reviewText}"><br><br>
     Address: <input type="text" id="address" th:field="*{address}" required><br><br>
     Menu Item: <input type="text" id="menuItem" th:field="*{menuItem}" required><br><br>
